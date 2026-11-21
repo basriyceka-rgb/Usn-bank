@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ธนาคารโลกสหพันธ์ USN</title>
+<link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#e8fbff;--card:#fffdf5;--ink:#0f3b4a;--muted:#4d8a96;
+  --pink:#4fd1c5;--lilac:#8fd0ff;--mint:#a4f0cb;--sun:#ffe07a;--red:#ff8a8a;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0b2a35;--card:#123a48;--ink:#e3fbff;--muted:#8fd1d6;
+  --pink:#1f9e98;--lilac:#2d7fb8;--mint:#2f9c78;--sun:#d9a928;--red:#d65c5c;}}
+:root[data-theme="dark"]{--bg:#0b2a35;--card:#123a48;--ink:#e3fbff;--muted:#8fd1d6;--pink:#1f9e98;--lilac:#2d7fb8;--mint:#2f9c78;--sun:#d9a928;--red:#d65c5c}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Mali","Noto Sans Thai",system-ui,sans-serif;line-height:1.55;min-height:100vh;
+  background-image:radial-gradient(circle,rgba(79,209,197,.28) 2px,transparent 2.5px);background-size:26px 26px}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.hidden{display:none!important}
+.sticker{border:3px solid var(--ink);border-radius:22px;box-shadow:4px 4px 0 var(--ink)}
+.btn{border:3px solid var(--ink);border-radius:16px;padding:8px 14px;font-weight:700;background:var(--sun);color:#0f3b4a;box-shadow:3px 3px 0 var(--ink);transition:transform .1s,box-shadow .1s}
+.btn:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
+.btn.mint{background:var(--mint)}.btn.red{background:var(--red)}.btn.lilac{background:var(--lilac)}.btn.pink{background:var(--pink)}
+.btn.sm{padding:4px 10px;font-size:14px;box-shadow:2px 2px 0 var(--ink)}
+
+/* Home */
+.home{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:32px 20px;position:relative;overflow:hidden;
+  background:linear-gradient(160deg,var(--lilac),var(--pink))}
+.spark{position:absolute;font-size:26px;animation:tw 2.4s ease-in-out infinite}
+@keyframes tw{0%,100%{transform:scale(.6) rotate(0);opacity:.5}50%{transform:scale(1.2) rotate(20deg);opacity:1}}
+.mascot{width:130px;height:130px;animation:bob 2s ease-in-out infinite;filter:drop-shadow(4px 4px 0 var(--ink))}
+@keyframes bob{50%{transform:translateY(-12px) rotate(-3deg)}}
+@media (prefers-reduced-motion:reduce){.spark,.mascot{animation:none}}
+.login{background:var(--card);padding:20px 18px;width:100%;max-width:340px;display:grid;gap:12px;text-align:left}
+.login .btn{font-size:18px;padding:10px}
+.link{background:none;border:0;color:#0f3b4a;text-decoration:underline;font-weight:600;padding:4px}
+.err{color:#b3261e;font-weight:700;font-size:14px;min-height:20px}
+.hubgrid{display:grid;gap:16px;margin-top:6px}
+.box{display:block;width:100%;text-align:left;padding:22px 18px;background:var(--card);color:var(--ink)}
+.box .ic{font-size:44px;line-height:1}
+.box h3{margin:6px 0 2px;font-size:22px}
+.box p{margin:0;color:var(--muted);font-weight:600}
+.box.a{background:var(--mint);color:#0f3b4a}.box.b{background:var(--lilac);color:#0f3b4a}
+.box.a p,.box.b p{color:#0f3b4a}
+@media (min-width:560px){.hubgrid{grid-template-columns:1fr 1fr}}
+.home h1{margin:16px 0 6px;font-size:clamp(32px,9vw,56px);line-height:1.25;color:#fff;-webkit-text-stroke:2px #0f3b4a;paint-order:stroke fill;text-shadow:4px 4px 0 #0f3b4a}
+.home p{margin:0 0 28px;color:#0f3b4a;font-weight:600}
+
+
+/* App */
+.wrap{max-width:720px;margin:0 auto;padding:16px 14px 56px}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.top h2{margin:0;font-size:22px;flex:1}
+.tabs{display:flex;gap:8px;margin-bottom:16px}
+.tabs button{flex:1;background:var(--card);border:3px solid var(--ink);border-radius:16px;padding:10px 6px;font-weight:700;box-shadow:3px 3px 0 var(--ink)}
+.tabs button[aria-selected="true"]{background:var(--pink);color:#0f3b4a}
+.total{background:var(--mint);color:#0f3b4a;padding:14px 16px;margin-bottom:14px}
+.total b{font-size:26px;display:block}
+.form{background:var(--card);padding:14px;margin-bottom:14px;display:grid;gap:10px}
+label{display:grid;gap:3px;font-size:14px;color:var(--muted);font-weight:600}
+input,select{width:100%;padding:8px 10px;border:3px solid var(--ink);border-radius:14px;background:var(--bg)}
+.row{display:flex;gap:10px}.row>*{flex:1}
+
+/* Banknote */
+.note{position:relative;margin-bottom:18px;padding:18px 16px 16px;background:
+  repeating-linear-gradient(45deg,transparent 0 10px,rgba(143,208,255,.25) 10px 20px),var(--card)}
+.note::before{content:"";position:absolute;inset:6px;border:2px dashed var(--pink);border-radius:16px;pointer-events:none}
+.note>*{position:relative}
+.nhead{display:flex;align-items:center;gap:8px}
+.nname{flex:1;font-size:20px;font-weight:700;overflow-wrap:anywhere}
+.coin{font-size:30px}
+.amount{margin:8px 0 2px;font-size:36px;font-weight:700;line-height:1.2}
+.amount small{font-size:18px;color:var(--muted)}
+.eq{color:var(--muted);font-size:14px;font-weight:600}
+.act{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.pbadge{display:inline-block;background:var(--sun);color:#0f3b4a;border:2px solid var(--ink);border-radius:999px;padding:0 10px;font-size:13px;font-weight:700}
+.rate{background:var(--card);padding:14px;margin-bottom:16px}
+.rate h3{margin:0 0 4px;font-size:19px}
+.central{background:var(--sun);color:#0f3b4a;padding:14px 16px;margin-bottom:16px;text-align:center;font-size:20px;font-weight:700}
+.empty{text-align:center;color:var(--muted);padding:26px 8px;font-weight:600}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-weight:600;font-size:14px;z-index:9;max-width:90vw;text-align:center}
+</style>
+
+<style>
+:root{--g1:#dff6ff;--g2:#d9f4f0;--g3:#dcf9e8;--gold:#ffd24a}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--g1:#0e3340;--g2:#0b2a38;--g3:#0d3a33;--gold:#ffd24a}}
+:root[data-theme="dark"]{--g1:#0e3340;--g2:#0b2a38;--g3:#0d3a33}
+body{background:linear-gradient(170deg,var(--g1),var(--g2) 55%,var(--g3)) fixed;position:relative}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background-image:radial-gradient(circle,rgba(255,255,255,.55) 2px,transparent 2.5px),radial-gradient(circle,rgba(143,208,255,.5) 3px,transparent 3.5px);background-size:34px 34px,58px 58px;background-position:0 0,17px 29px}
+body>section,.toast{position:relative}
+.toast{position:fixed}
+.home{background:radial-gradient(circle at 20% 15%,#fff6 0 90px,transparent 91px),radial-gradient(circle at 85% 80%,#fff5 0 120px,transparent 121px),linear-gradient(160deg,#5ec8ff,#4fd1c5 60%,#a8f0c6)}
+.home h1{background:linear-gradient(180deg,#fff 40%,#ffe6f3);-webkit-background-clip:border-box}
+.login{background:linear-gradient(180deg,#fffdf5,#e8fbff);color:#0f3b4a}
+.login label{color:#4d8a96}.login input{background:#fff;color:#0f3b4a}
+.tabs button{border-radius:999px;background:linear-gradient(180deg,#fff,var(--card))}
+.tabs button[aria-selected="true"]{background:linear-gradient(180deg,#aef0ea,var(--pink))}
+.total{background:linear-gradient(135deg,#c8f7e2,#b4e8ff)}
+.total b{font-size:30px}
+.box{position:relative;overflow:hidden;padding:24px 20px;transition:transform .12s}
+.box:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
+.box.a{background:linear-gradient(135deg,#c8f7e2,#9fe3c4)}
+.box.b{background:linear-gradient(135deg,#bfe6ff,#7fc4ff)}
+.box::after{content:"";position:absolute;right:-30px;top:-30px;width:110px;height:110px;border-radius:50%;background:rgba(255,255,255,.4);border:3px dashed rgba(74,47,79,.35)}
+.box .ic{display:grid;place-items:center;width:70px;height:70px;border-radius:50%;background:#fffdf5;border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);font-size:36px}
+.box h3{margin-top:12px}
+
+/* banknote */
+.note{padding:0 16px 16px;overflow:hidden;
+ background:radial-gradient(circle at 100% 100%,rgba(79,209,197,.35) 0 60px,transparent 61px),
+ repeating-radial-gradient(circle at 15% 70%,transparent 0 9px,rgba(143,208,255,.28) 9px 10px),
+ linear-gradient(135deg,#fffdf5,#eafaf2 55%,#e6f4ff);color:#0f3b4a;
+ outline:2px dashed #4fd1c5;outline-offset:-9px}
+.note::before{display:none}
+.note .eq,.note label{color:#3f7f8b}
+.note input,.note select{background:#fff;color:#0f3b4a}
+.nhead{margin:0 -16px 10px;padding:12px 16px;background:linear-gradient(90deg,#7fe0d8,#8fd3ff);border-bottom:3px solid var(--ink)}
+.nname{color:#0f3b4a}
+.amount{color:var(--gold);-webkit-text-stroke:2px #0f3b4a;paint-order:stroke fill;text-shadow:3px 3px 0 #0f3b4a;font-size:40px;letter-spacing:.5px;margin-top:12px}
+.amount small{color:#fff;-webkit-text-stroke:1.5px #0f3b4a;font-size:20px;text-shadow:2px 2px 0 #0f3b4a}
+.serial{margin-top:8px;font-size:12px;color:#6aa0aa;font-weight:700;letter-spacing:1.5px;text-align:right}
+.rate{padding:0 14px 14px;overflow:hidden;color:#0f3b4a;background:linear-gradient(135deg,#fffdf5,#e6f4ff)}
+.rate h3{margin:0 -14px 10px;padding:11px 14px;background:linear-gradient(90deg,#8fd0ff,#a4f0cb);border-bottom:3px solid var(--ink)}
+.rate label{color:#3f7f8b}.rate input{background:#fff;color:#0f3b4a}.rate .eq{color:#3f7f8b}
+.central{background:linear-gradient(135deg,#ffe07a,#ffd89a);font-size:22px;position:relative}
+.btn{background-image:linear-gradient(180deg,rgba(255,255,255,.45),transparent 55%)}
+</style>
+</head>
+<body>
+
+<section id="home" class="home hidden">
+  <span class="spark" style="top:12%;left:14%">✨</span>
+  <span class="spark" style="top:20%;right:12%;animation-delay:.6s">⭐</span>
+  <span class="spark" style="bottom:18%;left:10%;animation-delay:1.2s">🌊</span>
+  <span class="spark" style="bottom:12%;right:16%;animation-delay:.3s">✨</span>
+  <span class="spark" style="top:48%;left:5%;animation-delay:1.7s">🪙</span>
+  <span class="spark" style="top:44%;right:6%;animation-delay:.9s">🪙</span>
+  <svg class="mascot" viewBox="0 0 140 140" aria-hidden="true">
+    <circle cx="70" cy="70" r="60" fill="#5ec8ff" stroke="#0f3b4a" stroke-width="5"/>
+    <path d="M24 56 Q30 30 60 28 Q74 36 62 50 Q56 64 42 62 Q28 66 24 56Z" fill="#7be0a4" stroke="#0f3b4a" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M84 30 Q112 34 116 58 Q110 72 98 66 Q92 84 80 76 Q74 52 84 30Z" fill="#7be0a4" stroke="#0f3b4a" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M44 108 Q62 98 82 110 Q76 126 58 122 Q46 120 44 108Z" fill="#7be0a4" stroke="#0f3b4a" stroke-width="3" stroke-linejoin="round"/>
+    <ellipse cx="42" cy="38" rx="14" ry="7" fill="#fff" opacity=".55" transform="rotate(-30 42 38)"/>
+    <ellipse cx="53" cy="74" rx="6" ry="8" fill="#0f3b4a"/><ellipse cx="89" cy="74" rx="6" ry="8" fill="#0f3b4a"/>
+    <circle cx="55" cy="71" r="2.2" fill="#fff"/><circle cx="91" cy="71" r="2.2" fill="#fff"/>
+    <ellipse cx="41" cy="88" rx="8" ry="5" fill="#ffb3c9"/><ellipse cx="101" cy="88" rx="8" ry="5" fill="#ffb3c9"/>
+    <path d="M59 88 Q71 101 83 88" fill="none" stroke="#0f3b4a" stroke-width="4" stroke-linecap="round"/>
+  </svg>
+  <h1>ธนาคารโลกสหพันธ์ USN</h1>
+  <p>พิมพ์ชื่อประเทศครั้งเดียว ระบบจำเครื่องนี้ให้ ✨</p>
+  <form class="login sticker" id="login">
+    <label>ชื่อประเทศ<input id="l-name" required maxlength="40" autocomplete="off" placeholder="เช่น อาณาจักรเมฆฟู"></label>
+    <button type="submit" class="btn mint">🌈 เข้าประเทศ</button>
+  </form>
+</section>
+
+<section id="hub" class="wrap hidden">
+  <div class="top"><h2>ประเทศจินตนาการ 🌈</h2><button class="btn red sm" id="logout">เปลี่ยนประเทศ</button></div>
+  <p class="eq" id="hello" style="margin:0 0 12px"></p>
+  <div class="hubgrid">
+    <button class="box a sticker" id="b-acc"><div class="ic">💰</div><h3>บัญชี</h3><p id="b-accp"></p></button>
+    <button class="box b sticker" id="b-rate"><div class="ic">💱</div><h3>ค่าเงินแต่ละประเทศ</h3><p>สกุลเงินและอัตราแลกเปลี่ยน</p></button>
+  </div>
+</section>
+
+<section id="app" class="wrap hidden">
+  <div class="top">
+    <button class="btn lilac sm" id="back">🏠 หน้าหลัก</button>
+    <h2>ประเทศจินตนาการ 🌈</h2>
+  </div>
+  <div class="tabs" role="tablist">
+    <button role="tab" id="t-accounts" aria-selected="true">💰 บัญชี</button>
+    <button role="tab" id="t-rates" aria-selected="false">💱 ค่าเงินแต่ละประเทศ</button>
+  </div>
+
+  <div id="p-accounts">
+    <div class="total sticker">เงินรวมทุกประเทศ<b id="total">0 ฟอล</b><span id="totalB" class="eq" style="color:#0f3b4a"></span></div>
+    
+    <div id="accounts"></div>
+  </div>
+
+  <div id="p-rates" class="hidden">
+    <div class="central sticker">🪙 สกุลเงินกลาง: 1 ฟอล = 10 ฿</div>
+    <div id="rates"></div>
+  </div>
+</section>
+
+<div id="toast" class="toast hidden" role="status"></div>
+
+<script>
+var KEY='usn-bank-v2',FALL=10;
+var countries=[];
+try{
+  var raw=localStorage.getItem(KEY)||localStorage.getItem('usn-bank-countries');
+  if(raw)countries=(JSON.parse(raw)||[]).map(function(c){return {id:c.id,name:c.name,cur:c.cur||'หน่วย',rate:c.rate||FALL,balance:Number(c.balance)||0}});
+}catch(e){countries=[];}
+var units={};
+function save(){try{localStorage.setItem(KEY,JSON.stringify(countries));}catch(e){}}
+function $(id){return document.getElementById(id)}
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function fmt(n){return Number(n).toLocaleString('th-TH',{maximumFractionDigits:2})}
+var tt;
+function toast(m){var t=$('toast');t.textContent=m;t.classList.remove('hidden');clearTimeout(tt);tt=setTimeout(function(){t.classList.add('hidden')},2400)}
+function find(id){return countries.filter(function(c){return c.id===id})[0]}
+
+function who(){try{return localStorage.getItem('usn-in')||'';}catch(e){return window.__in||'';}}
+function setWho(v){try{if(v)localStorage.setItem('usn-in',v);else localStorage.removeItem('usn-in');}catch(e){window.__in=v;}}
+$('login').onsubmit=function(e){
+  e.preventDefault();
+  var name=$('l-name').value.trim();if(!name)return;
+  var c=countries.filter(function(x){return x.name.toLowerCase()===name.toLowerCase()})[0];
+  if(!c){
+    c={id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),name:name,cur:'เหรียญ'+name,rate:FALL,balance:0};
+    countries.push(c);save();render();toast('สร้างบัญชีประเทศ '+name+' แล้ว 🎉');
+  }else toast('ยินดีต้อนรับกลับ '+c.name+' 💖');
+  setWho(c.name);$('login').reset();location.hash='hub';route();
+};
+$('logout').onclick=function(){setWho('');location.hash='login';route();};
+
+function route(){
+  var h=location.hash.slice(1),me=who();
+  if(me&&!countries.some(function(x){return x.name.toLowerCase()===me.toLowerCase()})){setWho('');me='';}
+  if(!me)h='login';
+  else if(['hub','accounts','rates'].indexOf(h)<0)h='hub';
+  $('home').classList.toggle('hidden',h!=='login');
+  $('hub').classList.toggle('hidden',h!=='hub');
+  var inApp=h==='accounts'||h==='rates';
+  $('app').classList.toggle('hidden',!inApp);
+  var r=h==='rates';
+  $('p-accounts').classList.toggle('hidden',r);$('p-rates').classList.toggle('hidden',!r);
+  $('t-accounts').setAttribute('aria-selected',String(!r));$('t-rates').setAttribute('aria-selected',String(r));
+  $('hello').textContent=me?'สวัสดี '+me+' 👋 เลือกช่องที่ต้องการ':'';
+  window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',route);
+$('back').onclick=function(){location.hash='hub'};
+$('b-acc').onclick=function(){location.hash='accounts'};
+$('b-rate').onclick=function(){location.hash='rates'};
+$('t-accounts').onclick=function(){location.hash='accounts'};
+$('t-rates').onclick=function(){location.hash='rates'};
+
+function render(){
+  var sum=0;countries.forEach(function(c){sum+=c.balance});
+  $('total').textContent=fmt(sum)+' ฟอล';$('b-accp').textContent=countries.length+' ประเทศ • รวม '+fmt(sum)+' ฟอล';$('totalB').textContent='= '+fmt(sum*FALL)+' ฿';
+  if(!countries.length){
+    $('accounts').innerHTML='<div class="empty">🐣 ยังไม่มีประเทศเลย</div>';
+    $('rates').innerHTML='<div class="empty">🐣 ยังไม่มีสกุลเงิน </div>';return;
+  }
+  var me=who().toLowerCase();
+  var list=countries.slice().sort(function(a,b){return (b.name.toLowerCase()===me)-(a.name.toLowerCase()===me)});
+  $('accounts').innerHTML=list.map(function(c){
+    var u=units[c.id]||'fall';
+    return '<article class="note sticker" data-id="'+c.id+'">'+
+     '<div class="nhead"><span class="coin">🪙</span><div class="nname">'+esc(c.name)+(c.name.toLowerCase()===me?' <span class="pbadge">⭐ ประเทศของคุณ</span>':'')+'</div><button class="btn red sm" data-act="del">🗑️ ลบ</button></div>'+
+     '<div class="amount">'+fmt(c.balance)+' <small>ฟอล</small></div>'+
+     '<div class="eq">= '+fmt(c.balance*FALL/c.rate)+' '+esc(c.cur)+'  •  = '+fmt(c.balance*FALL)+' ฿</div>'+
+     '<div class="row" style="margin-top:12px">'+
+     '<label>จำนวนเงิน<input type="number" min="0" step="any" inputmode="decimal" placeholder="ใส่จำนวน" data-amt></label>'+
+     '<label>หน่วย<select data-unit>'+
+       '<option value="fall"'+(u==='fall'?' selected':'')+'>ฟอล</option>'+
+       '<option value="cur"'+(u==='cur'?' selected':'')+'>'+esc(c.cur)+'</option>'+
+       '<option value="baht"'+(u==='baht'?' selected':'')+'>บาท ฿</option></select></label></div>'+
+     '<div class="serial">เลขที่ USN-'+c.id.slice(-6).toUpperCase()+'</div>'+
+     '<div class="act"><button class="btn mint" data-act="add">➕ เพิ่มเงิน</button><button class="btn red" data-act="sub">➖ ลดเงิน</button></div>'+
+    '</article>';
+  }).join('');
+  $('rates').innerHTML=countries.map(function(c){
+    return '<article class="rate sticker" data-id="'+c.id+'"><h3>💱 '+esc(c.name)+'</h3>'+
+     '<div class="pbadge">สกุลเงิน: '+esc(c.cur)+'</div>'+
+     '<p class="eq" style="margin:8px 0">1 '+esc(c.cur)+' = '+fmt(c.rate)+' ฿ = '+fmt(c.rate/FALL)+' ฟอล</p>'+
+     '<div class="row"><label>ชื่อสกุลเงิน<input data-ecur value="'+esc(c.cur)+'" maxlength="20"></label>'+
+     '<label>1 สกุล = กี่บาท<input data-erate type="number" min="0.0001" step="any" inputmode="decimal" value="'+c.rate+'"></label></div>'+
+     '<button class="btn lilac" data-act="saverate" style="margin-top:10px;width:100%">💾 บันทึกอัตราแลกเปลี่ยน</button></article>';
+  }).join('');
+}
+
+$('accounts').addEventListener('change',function(e){
+  if(e.target.matches('[data-unit]')){units[e.target.closest('.note').getAttribute('data-id')]=e.target.value;}
+});
+$('accounts').addEventListener('click',function(e){
+  var b=e.target.closest('button[data-act]');if(!b)return;
+  var card=b.closest('.note'),c=find(card.getAttribute('data-id'));if(!c)return;
+  var act=b.getAttribute('data-act');
+  if(act==='del'){
+    if(!b.dataset.sure){b.dataset.sure='1';b.textContent='⚠️ กดอีกครั้งเพื่อลบ';setTimeout(function(){if(b.isConnected){delete b.dataset.sure;b.textContent='🗑️ ลบ';}},3000);}else{
+      var mine=c.name.toLowerCase()===who().toLowerCase();
+      countries=countries.filter(function(x){return x!==c});save();render();toast('ลบประเทศ '+c.name+' แล้ว');
+      if(mine){setWho('');location.hash='login';route();}
+    }
+    return;
+  }
+  var amt=parseFloat(card.querySelector('[data-amt]').value),u=card.querySelector('[data-unit]').value;
+  if(!(amt>0)){toast('ใส่จำนวนเงินที่มากกว่า 0 นะ');return;}
+  var fall=u==='fall'?amt:u==='baht'?amt/FALL:amt*c.rate/FALL;
+  if(act==='sub'&&fall>c.balance+1e-9){toast('ยอดเงินไม่พอ 😢');return;}
+  c.balance=Math.max(0,c.balance+(act==='add'?fall:-fall));
+  save();render();toast((act==='add'?'เพิ่ม ':'ลด ')+fmt(fall)+' ฟอล ให้ '+c.name+' ✨');
+});
+$('rates').addEventListener('click',function(e){
+  var b=e.target.closest('button[data-act="saverate"]');if(!b)return;
+  var card=b.closest('.rate'),c=find(card.getAttribute('data-id'));if(!c)return;
+  var cur=card.querySelector('[data-ecur]').value.trim(),rate=parseFloat(card.querySelector('[data-erate]').value);
+  if(!cur||!(rate>0)){toast('ใส่ชื่อสกุลเงินและอัตราที่มากกว่า 0');return;}
+  c.cur=cur;c.rate=rate;save();render();toast('บันทึกอัตราแลกเปลี่ยนแล้ว 💖');
+});
+
+
+
+route();render();
+</script>
+</body>
+</html>
